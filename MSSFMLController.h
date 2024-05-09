@@ -1,0 +1,14 @@
+//
+// Created by c on 5/9/24.
+//
+
+#ifndef INC_278292_SNAKE_MSSFMLCONTROLLER_H
+#define INC_278292_SNAKE_MSSFMLCONTROLLER_H
+
+
+class MSSFMLController {
+
+};
+
+
+#endif //INC_278292_SNAKE_MSSFMLCONTROLLER_H
