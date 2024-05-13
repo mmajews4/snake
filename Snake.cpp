@@ -4,20 +4,30 @@
 Snake::Snake(int sl, SnakeBoard &b) : board(b)
 {
     snake_lengh = sl;
+    
+    // Dać zabezpieczenie przez za małą planszą
+    snake.push_back({1, 1, HEAD, UP});
+    snake.push_back({board.getWidth()/2, board.getHeight()/2-1, BODY, UP});
+    snake.push_back({board.getWidth()/2, board.getHeight()/2-2, TAIL, UP});
 }
 
 
-// Function checks if at secified coorrdinates there is snake
-// - returns 1 if it is
-// - returns 0 if not
- Snake::isPartOfSnake(int col, int row)
+// Function returns what parto of snake is at a given coordinates
+SnakePart Snake::isPartOfSnake(int col, int row) const
 {
-
+    for(const auto& iterator: snake) // It goes through every element on the list and chceks if it maches given positon
+    {
+        if(iterator.col == col && iterator.row == row)
+        {
+            return iterator.part;
+        }
+    }
+    return NONE;
 }
 
 
 // Displays snake on board
-void Snake::display()
+void Snake::display() const
 {
 
 }

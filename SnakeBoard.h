@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iomanip>
 #include <random>
+#include "Snake.h"
 
 enum GameMode  { DEBUG, EASY, NORMAL, HARD };
 enum GameState { RUNNING, FINISHED_WIN, FINISHED_LOSS };
@@ -34,6 +35,9 @@ public:
     // Creates board
     SnakeBoard(int, int, GameMode);
 
+    int getWidth() const;
+    int getHeight() const;
+
     // Finish game
     // - if snake hits wall ora obsticle change gameState for FINISHED_LOSS
     // - save score(snake length)
@@ -45,7 +49,7 @@ public:
     void update();
 
     // Displays corrent state of the board and snake
-    void debugDispaly() const;
+    void debugDisplay(Snake &snake) const;
 
 };
 

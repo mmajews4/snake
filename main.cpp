@@ -12,5 +12,8 @@ int main() {
     
     SnakeBoard board(20, 20, NORMAL);
     Snake snake(3, board);
+
+    board.debugDisplay(snake);
+
     return 0;
 }

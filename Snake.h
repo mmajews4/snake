@@ -1,37 +1,35 @@
 #ifndef INC_278292_SNAKE_SNAKE_H
 #define INC_278292_SNAKE_SNAKE_H
 
-#include "SnakeBoard.h"
 #include <list>
+class SnakeBoard;
 
-enum SnakePart { HEAD, BODY, TAIL };
+enum SnakePart { NONE, HEAD, BODY, TAIL };
 enum Direction { UP, RIGHT, DOWN, LEFT };
 
 struct SnakeTile {
     int col;
     int row;
     SnakePart part;
+    Direction direction; // Here to make better animation
 };
 
 class Snake {
 
     std::list<SnakeTile> snake; 
-    SnakeBoard board;
-    Direction currDir; // Curent direction in wchich snake moves
+    SnakeBoard &board;
     int snake_lengh; // Snake lengh at start
 
 public:
 
     // Creates snake at ehe middle of the boadrd with set length
-    Snake(int sl, SnakeBoard &b);
+    Snake(int sl, SnakeBoard &);
 
-    // Function checks if at secified coorrdinates there is snake
-    // - returns 1 if it is
-    // - returns 0 if not
-    bool isPartOfSnake(int col, int row);
+    // Function returns what parto of snake is at a given coordinates
+    SnakePart isPartOfSnake(int col, int row) const;
 
     // Displays snake on board
-    void display();
+    void display() const;
 
     // Function updates snake state
     // - checks if after move, snake isn't out of board
