@@ -13,7 +13,7 @@ int main() {
     SnakeBoard board(20, 20, NORMAL);
     Snake snake(3, board);
 
-    board.debugDisplay(snake);
+    snake.debug_display();
 
     return 0;
 }

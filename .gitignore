@@ -1,3 +1,6 @@
+### MakeFile ###
+sfml-app
+
 ### C++ ###
 # Prerequisites
 *.d

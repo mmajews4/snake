@@ -2,7 +2,9 @@
 #define INC_278292_SNAKE_SNAKE_H
 
 #include <list>
-class SnakeBoard;
+#include <iostream>
+#include "SnakeBoard.h"
+
 
 enum SnakePart { NONE, HEAD, BODY, TAIL };
 enum Direction { UP, RIGHT, DOWN, LEFT };
@@ -20,13 +22,16 @@ class Snake {
     SnakeBoard &board;
     int snake_lengh; // Snake lengh at start
 
+    // Function returns what parto of snake is at a given coordinates
+    SnakePart isPartOfSnake(int col, int row) const;
+
 public:
 
     // Creates snake at ehe middle of the boadrd with set length
     Snake(int sl, SnakeBoard &);
 
-    // Function returns what parto of snake is at a given coordinates
-    SnakePart isPartOfSnake(int col, int row) const;
+    // Displays currnet state of the snake and the board
+    void debug_display() const;
 
     // Displays snake on board
     void display() const;

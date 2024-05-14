@@ -1,12 +1,14 @@
 #include "Snake.h"
 
+using namespace std;
+
 // Creates snake at ehe middle of the boadrd with set length
 Snake::Snake(int sl, SnakeBoard &b) : board(b)
 {
     snake_lengh = sl;
     
     // Dać zabezpieczenie przez za małą planszą
-    snake.push_back({1, 1, HEAD, UP});
+    snake.push_back({board.getWidth()/2, board.getHeight()/2, HEAD, UP});
     snake.push_back({board.getWidth()/2, board.getHeight()/2-1, BODY, UP});
     snake.push_back({board.getWidth()/2, board.getHeight()/2-2, TAIL, UP});
 }
@@ -23,6 +25,45 @@ SnakePart Snake::isPartOfSnake(int col, int row) const
         }
     }
     return NONE;
+}
+
+
+// Displays currnet state of the snake and the board
+void Snake::debug_display() const
+{
+    for(int row = 0; row < board.getHeight(); row++){
+        for(int col = 0; col < board.getWidth(); col++){
+            switch(isPartOfSnake(col, row)){
+                case SnakePart::HEAD:
+                    cout << "H";
+                    continue;
+                case BODY:
+                    cout << "B";
+                    continue;
+                case TAIL:
+                    cout << "T";
+                    continue;
+                case NONE:
+                    break;
+            }    
+            switch(board.getBoardState(col, row)){
+                case APPLE:
+                    cout << "A";
+                    break;
+                case OBSTICLE:
+                    cout << "O";
+                    break;
+                case EMPTY:
+                    cout << "_";
+                    break;
+                default:
+                    cout << "#";
+                    break;
+            }
+            cout << " ";
+        }
+        cout << endl;
+    }
 }
 
 

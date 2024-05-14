@@ -34,6 +34,11 @@ int SnakeBoard::getHeight() const
     return height;
 }
 
+Field SnakeBoard::getBoardState(int col, int row) const
+{
+    return board[row][col];
+}
+
 // Generates apple
 bool SnakeBoard::genApple()
 {
@@ -78,42 +83,4 @@ void SnakeBoard::finishGame(int s)
 // - updates board if apple was eaten or obsticle moved
 void SnakeBoard::update(){
 
-}
-
-// Displays corrent state of the board and snake
-void SnakeBoard::debugDisplay(Snake &snake) const
-{
-    for(int row = 0; row < height; row++){
-        for(int col = 0; col < width; col++){
-            switch(snake.isPartOfSnake(col, row)){
-                case SnakePart::HEAD:
-                    cout << "H";
-                    continue;
-                case BODY:
-                    cout << "B";
-                    continue;
-                case TAIL:
-                    cout << "T";
-                    continue;
-                case NONE:
-                    break;
-            }    
-            switch(board[row][col]){
-                case APPLE:
-                    cout << "A";
-                    break;
-                case OBSTICLE:
-                    cout << "O";
-                    break;
-                case EMPTY:
-                    cout << "_";
-                    break;
-                default:
-                    cout << "#";
-                    break;
-            }
-            cout << " ";
-        }
-        cout << endl;
-    }
 }
