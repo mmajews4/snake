@@ -19,32 +19,22 @@ struct SnakeTile {
 class Snake {
 
     std::list<SnakeTile> snake; 
-    SnakeBoard &board;
-    int snake_lengh; // Snake lengh at start
 
-    // Function returns what parto of snake is at a given coordinates
-    SnakePart isPartOfSnake(int col, int row) const;
+    int snake_lengh; // Snake lengh at start
 
 public:
 
     // Creates snake at ehe middle of the boadrd with set length
-    Snake(int sl, SnakeBoard &);
+    Snake(int sl, int col, int row);
 
-    // Displays currnet state of the snake and the board
-    void debug_display() const;
+    // Function returns what parto of snake is at a given coordinates
+    SnakePart isPartOfSnake(int col, int row) const;
 
-    // Displays snake on board
-    void display() const;
-
-    // Function updates snake state
-    // - checks if after move, snake isn't out of board
-    // - checks if after move, snake isn't in the obsticle
-    // - moves snake in current Direction
-    // - checks if snake eats apple
-    // - updates game state
-    void updateSnake();
-
-
+    // Returns where is head
+    SnakeTile getSnakeHead() const;
+    
+    // Moves snake in current Direction
+    void moveSnake(Direction next_move_dir, bool apple_eaten);
 };
 
 

@@ -3,14 +3,17 @@
 using namespace std;
 
 // Creates snake at ehe middle of the boadrd with set length
-Snake::Snake(int sl, SnakeBoard &b) : board(b)
+Snake::Snake(int sl, int col, int row)
 {
     snake_lengh = sl;
-    
+
     // Dać zabezpieczenie przez za małą planszą
-    snake.push_back({board.getWidth()/2, board.getHeight()/2, HEAD, UP});
-    snake.push_back({board.getWidth()/2, board.getHeight()/2-1, BODY, UP});
-    snake.push_back({board.getWidth()/2, board.getHeight()/2-2, TAIL, UP});
+    snake.push_back({col, row, HEAD, UP});
+    for(int added_lengh = 1; added_lengh < snake_lengh - 1; added_lengh ++)
+    {
+        snake.push_back({col, row+added_lengh, BODY, UP});
+    }
+    snake.push_back({col, row+(snake_lengh-1), TAIL, UP});
 }
 
 
@@ -28,59 +31,46 @@ SnakePart Snake::isPartOfSnake(int col, int row) const
 }
 
 
-// Displays currnet state of the snake and the board
-void Snake::debug_display() const
+// Returns where is head
+SnakeTile Snake::getSnakeHead() const
 {
-    for(int row = 0; row < board.getHeight(); row++){
-        for(int col = 0; col < board.getWidth(); col++){
-            switch(isPartOfSnake(col, row)){
-                case SnakePart::HEAD:
-                    cout << "H";
-                    continue;
-                case BODY:
-                    cout << "B";
-                    continue;
-                case TAIL:
-                    cout << "T";
-                    continue;
-                case NONE:
-                    break;
-            }    
-            switch(board.getBoardState(col, row)){
-                case APPLE:
-                    cout << "A";
-                    break;
-                case OBSTICLE:
-                    cout << "O";
-                    break;
-                case EMPTY:
-                    cout << "_";
-                    break;
-                default:
-                    cout << "#";
-                    break;
-            }
-            cout << " ";
-        }
-        cout << endl;
+    return snake.front();
+}
+
+
+void Snake::moveSnake(Direction next_move_dir, bool apple_eaten)
+{
+    SnakeTile first_element = snake.front();
+
+    // Change the previous first element to be body
+    first_element.part = BODY;
+    snake.front() = first_element;
+
+    // Add new first element acording to snake direction
+    switch(next_move_dir){
+        case UP:
+            snake.push_front({first_element.col, first_element.row-1, HEAD, next_move_dir});
+            break;
+        case RIGHT:
+            snake.push_front({first_element.col+1, first_element.row, HEAD, next_move_dir});
+            break;
+        case DOWN:
+            snake.push_front({first_element.col, first_element.row+1, HEAD, next_move_dir});
+            break;
+        case LEFT:
+            snake.push_front({first_element.col-1, first_element.row, HEAD, next_move_dir});
+            break;   
     }
-}
 
+    // If the apple is at position of head, eat apple and don't remove tail
+    if(!apple_eaten)
+    {
+        // pop last element
+        snake.pop_back();
 
-// Displays snake on board
-void Snake::display() const
-{
-
-}
-
-
-// Function updates snake state
-// - checks if after move, snake isn't out of board
-// - checks if after move, snake isn't in the obsticle
-// - moves snake in current Direction
-// - checks if snake eats apple
-// - updates game state
-void Snake::updateSnake()
-{
-
+        // change the current last element to be tail
+        SnakeTile last_element = snake.back();
+        last_element.part = TAIL;
+        snake.back() = last_element;
+    }
 }

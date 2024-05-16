@@ -7,22 +7,14 @@
 #include <random>
 
 enum GameMode  { DEBUG, EASY, NORMAL, HARD };
-enum GameState { RUNNING, FINISHED_WIN, FINISHED_LOSS };
 enum Field { EMPTY, APPLE, OBSTICLE};
 
 class SnakeBoard {
 
     int width, height;
     int score;
-    GameMode mode;
-    GameState state;
 
     Array2D<Field> board {10, 10};
-
-    // Generates apple
-    // returns 1 if succesfully generated
-    // returns 0 in not
-    bool genApple();
 
     // Generates obsticles
     // returns 1 if succesfully generated
@@ -37,16 +29,7 @@ public:
     int getWidth() const;
     int getHeight() const;
     Field getBoardState(int col, int row) const;
-
-    // Finish game
-    // - if snake hits wall ora obsticle change gameState for FINISHED_LOSS
-    // - save score(snake length)
-    void finishGame(int);  
-
-    // Updates game
-    // - updates snake
-    // - updates board if apple was eaten or obsticle moved
-    void update();
+    void setBoardState(int col, int row, Field state);
 };
 
 
