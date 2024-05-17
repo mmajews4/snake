@@ -2,12 +2,13 @@
 
 MSSFMLController::MSSFMLController(SnakeBoard &b, Snake &s, Controller &c, MSSFMLView &v) : board(b), snake(s), ctrl(c), view(v)
 {
-    displayInterval = sf::seconds(0.2f); // 1 second
+    displayInterval = sf::seconds(0.15);
     timeSinceLastDisplay = sf::Time::Zero;
+    dir_changed = false;
 }
 
 
-// Function handles mouse actions and updates board according to action
+// Function handles keyboard actions and updates board according to action
 void MSSFMLController::play(sf::RenderWindow &window)
 {
     sf::Event event;
@@ -22,17 +23,28 @@ void MSSFMLController::play(sf::RenderWindow &window)
         }
         else if (event.type == sf::Event::KeyPressed) {
             if(event.key.code == sf::Keyboard::W) {
-                if(ctrl.getNextDirection() != DOWN) ctrl.changeDirection(UP);
-                std::cout<< "UP" << std::endl;
+                if(ctrl.getNextDirection() != DOWN && dir_changed == false){
+                    ctrl.changeDirection(UP);
+                    dir_changed = true;
+                }
             }
             else if(event.key.code == sf::Keyboard::S) {
-                if(ctrl.getNextDirection() != UP) ctrl.changeDirection(DOWN);
+                if(ctrl.getNextDirection() != UP && dir_changed == false){
+                    ctrl.changeDirection(DOWN);
+                    dir_changed = true;
+                }
             }
             else if(event.key.code == sf::Keyboard::A) {
-                if(ctrl.getNextDirection() != RIGHT) ctrl.changeDirection(LEFT);
+                if(ctrl.getNextDirection() != RIGHT && dir_changed == false){
+                    ctrl.changeDirection(LEFT);
+                    dir_changed = true;
+                }
             }
             else if(event.key.code == sf::Keyboard::D) {
-                if(ctrl.getNextDirection() != LEFT) ctrl.changeDirection(RIGHT);
+                if(ctrl.getNextDirection() != LEFT && dir_changed == false){
+                    ctrl.changeDirection(RIGHT);
+                    dir_changed = true;
+                }
             }
         }
 /*        else if(event.type == sf::Event::MouseButtonPressed)
@@ -69,16 +81,14 @@ void MSSFMLController::play(sf::RenderWindow &window)
     sf::Time dt = clock.restart();
     timeSinceLastDisplay += dt;
 
- //   std::cout << timeSinceLastDisplay.asMilliseconds() << std::endl;
-
     // Check if it's time to update the display
-    if (timeSinceLastDisplay >= displayInterval) {
-
-
-        std::cout << timeSinceLastDisplay.asMilliseconds() << std::endl;
-
+    if (timeSinceLastDisplay >= displayInterval) 
+    {
         ctrl.updateSnake();
-        view.display(window);
+        if(ctrl.getGameState() == RUNNING) view.display(window);
+
+        // It makes sure snake turns only once in an update
+        dir_changed = false;
 
         // Reset the timer
         timeSinceLastDisplay = sf::Time::Zero;

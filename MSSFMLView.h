@@ -7,8 +7,8 @@
 
 class MSSFMLView {
 
-    Snake &snake;
     SnakeBoard &board;
+    Snake &snake;
 
     int window_width, window_height;    // In pixels
     int height, width; // in tiles

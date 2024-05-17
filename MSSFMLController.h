@@ -16,10 +16,12 @@ class MSSFMLController {
     sf::Time displayInterval;
     sf::Time timeSinceLastDisplay;
 
+    bool dir_changed;
+
 public:
     MSSFMLController(SnakeBoard &, Snake&, Controller&, MSSFMLView &);
 
-    // Function handles mouse actions and updates board according to action
+    // Function handles keyboard actions and updates board according to action
     void play(sf::RenderWindow &);
 
 };

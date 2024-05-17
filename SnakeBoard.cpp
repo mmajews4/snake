@@ -36,7 +36,7 @@ Field SnakeBoard::getBoardState(int col, int row) const
 
 void SnakeBoard::setBoardState(int col, int row, Field state)
 {
-    board[row][col] == state;
+    board[row][col] = state;
 }
 
 

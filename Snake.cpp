@@ -31,10 +31,33 @@ SnakePart Snake::isPartOfSnake(int col, int row) const
 }
 
 
+// Checks if snake hit himself
+bool Snake::checkBodyCollision() const
+{
+    SnakeTile head = snake.front();
+
+    for(const auto& iterator: snake) // It goes through every element on the list and chceks if it maches given positon
+    {
+        if(iterator.part != HEAD && iterator.col == head.col && iterator.row == head.row)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 // Returns where is head
 SnakeTile Snake::getSnakeHead() const
 {
     return snake.front();
+}
+
+
+// Returns snake lengh for score
+int Snake::getSnakeLengh() const
+{
+    return snake.size();
 }
 
 

@@ -32,6 +32,12 @@ public:
 
     // Returns where is head
     SnakeTile getSnakeHead() const;
+
+    // Returns snake lengh for score
+    int getSnakeLengh() const;
+
+    // Checks if snake hit himself
+    bool checkBodyCollision() const;
     
     // Moves snake in current Direction
     void moveSnake(Direction next_move_dir, bool apple_eaten);

@@ -3,9 +3,12 @@
 #include "Array2D.h"
 #include "SnakeBoard.h"
 #include "Snake.h"
+#include "Controller.h"
 #include "MSSFMLView.h"
 #include "MSSFMLController.h"
-#include "Controller.h"
+#include "MSSFMLMenuView.h"
+#include "MSSFMLMenuCtrl.h"
+
 
 using namespace std;
 
@@ -16,28 +19,17 @@ int main() {
     Controller ctrl(board, snake);
 
     MSSFMLView view(board, snake);
-    MSSFMLController win_ctrl (board, snake, ctrl, view);
+    MSSFMLController win_ctrl(board, snake, ctrl, view);
+    MSSFMLMenuView menu_view(ctrl, view);
+    MSSFMLMenuCtrl menu_ctrl(ctrl, menu_view);
 
-    sf::RenderWindow window(sf::VideoMode(view.getWindowWidth(), view.getWindowHeight()), "Snake", sf::Style::Titlebar | sf::Style::Close);
-
-    ctrl.debug_display();  
-/*    view.display(window);
-    ctrl.updateSnake();
-    ctrl.debug_display();
-    ctrl.updateSnake();
-    ctrl.debug_display();  
-    ctrl.updateSnake();
-    ctrl.debug_display();
-    ctrl.updateSnake();
-    ctrl.debug_display();  
-    ctrl.updateSnake();
-    ctrl.debug_display();
-    ctrl.updateSnake();
-    view.display(window);*/
+    sf::RenderWindow window(sf::VideoMode(view.getWindowWidth(), view.getWindowHeight()), "Snake");
 
     while (window.isOpen())
     {
-        win_ctrl.play(window);
+        if(ctrl.getGameState() == RUNNING) win_ctrl.play(window);
+
+        if(ctrl.getGameState() == FINISHED) menu_ctrl.show(window);
     }
 
     return 0;

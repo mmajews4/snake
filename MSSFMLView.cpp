@@ -31,8 +31,6 @@ void MSSFMLView::display(sf::RenderWindow &window) const
     sf::RectangleShape rectangle(sf::Vector2f(tile_size, tile_size));
     rectangle.setFillColor(sf::Color(0, 255, 0));
 
-    std::cout << ".";
-
     for(int row = 0; row < height; row++){
         for(int col = 0; col < width; col++){
 

@@ -9,14 +9,13 @@ enum GameState { RUNNING, FINISHED };
 
 class Controller 
 {
-    Snake &snake;
     SnakeBoard &board;
+    Snake &snake;
     Direction next_move_dir;
     GameMode mode;
     GameState state;
 
     bool apple_eaten;
-
     int score;
 
     // Generates apple
@@ -28,18 +27,27 @@ class Controller
     // Function deletes Apple at col,row and generates a new one
     void eatApple(int col, int row);
 
+    // - checks if after move, snake isn't out of board
+    // - checks if after move, snake isn't in the obsticle
+    // - chceks if snakde didn't hit himself
+    // - returns 0 if there was no collision and 1 if it happened
+    bool checkCollision(SnakeTile head) const;
+
 public:
     Controller(SnakeBoard &, Snake &);
 
-    Direction getNextDirection() const
-    {
-        return next_move_dir;
-    }
+    Direction getNextDirection() const;
+    GameState getGameState() const;
+    int getScore();
 
-    void changeDirection(Direction dir)
-    {
-        next_move_dir = dir;
-    }
+    // Changes currnet direction of snake
+    void changeDirection(Direction dir);
+
+
+    // - when game is running updates snake
+    // - when game finished it shows menu
+    void play();
+
 
     // Function updates snake state
     // - checks if after move, snake isn't out of board
