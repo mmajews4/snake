@@ -23,7 +23,9 @@ int main() {
     MSSFMLMenuView menu_view(ctrl, view);
     MSSFMLMenuCtrl menu_ctrl(ctrl, menu_view);
 
-    sf::RenderWindow window(sf::VideoMode(view.getWindowWidth(), view.getWindowHeight()), "Snake");
+    sf::RenderWindow window(sf::VideoMode(view.getWindowWidth(), view.getWindowHeight()), "Snake", sf::Style::Titlebar | sf::Style::Close);
+//    window.setVerticalSyncEnabled(false);
+  //  window.setFramerateLimit(30);
 
     while (window.isOpen())
     {

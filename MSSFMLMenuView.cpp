@@ -14,6 +14,13 @@ MSSFMLMenuView::MSSFMLMenuView(Controller &c, MSSFMLView &sv) : ctrl(c), snake_v
 }
 
 
+
+Button MSSFMLMenuView::getButton(ButtonFunction button_fuction) const
+{
+    return buttons[static_cast<int>(button_fuction)];
+}
+
+
 void MSSFMLMenuView::display(sf::RenderWindow &window)
 {
     // Load the font

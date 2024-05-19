@@ -85,7 +85,9 @@ void MSSFMLController::play(sf::RenderWindow &window)
     if (timeSinceLastDisplay >= displayInterval) 
     {
         ctrl.updateSnake();
-        if(ctrl.getGameState() == RUNNING) view.display(window);
+        if(ctrl.getGameState() == RUNNING) {}
+        
+        view.display(window);
 
         // It makes sure snake turns only once in an update
         dir_changed = false;

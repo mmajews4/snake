@@ -93,9 +93,9 @@ void Controller::play(){
 // - returns 0 if there was no collision and 1 if it happened
 bool Controller::checkCollision(SnakeTile head) const
 {
-    if((next_move_dir == LEFT && head.row <= 1)
+    if((next_move_dir == LEFT && head.col <= 0)
     or (next_move_dir == RIGHT && head.col >= board.getWidth()-1)
-    or (next_move_dir == UP && head.row <= 1)
+    or (next_move_dir == UP && head.row <= 0)
     or (next_move_dir == DOWN && head.row >= board.getHeight()-1)) return true;
     if(snake.checkBodyCollision() || board.getBoardState(head.col, head.row) == OBSTICLE) return true;
 

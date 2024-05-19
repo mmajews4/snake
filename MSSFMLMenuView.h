@@ -6,6 +6,8 @@
 #include "Controller.h"
 #include "MSSFMLView.h"
 
+enum ButtonFunction {EASY_BUTTON, NORMAL_BUTTON, HARD_BUTTON, PLAY, SCORES, DL_SCORES, NO_BUTTON};
+
 struct Button {
     int width;
     int height;
@@ -40,6 +42,8 @@ class MSSFMLMenuView {
 */
 public:
     MSSFMLMenuView(Controller&, MSSFMLView&);
+
+    Button getButton(ButtonFunction button_fuction) const; 
 
     // Function displays menu
     // - score
