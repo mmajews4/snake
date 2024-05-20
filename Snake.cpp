@@ -7,6 +7,15 @@ Snake::Snake(int sl, int col, int row)
 {
     snake_lengh = sl;
 
+    resetSnake(col, row);
+}
+
+
+// Resets Snake to its starting position at (col,row)
+void Snake::resetSnake(int col, int row)
+{
+    snake.clear();
+
     // Dać zabezpieczenie przez za małą planszą
     snake.push_back({col, row, HEAD, UP});
     for(int added_lengh = 1; added_lengh < snake_lengh - 1; added_lengh ++)
@@ -32,17 +41,26 @@ SnakePart Snake::isPartOfSnake(int col, int row) const
 
 
 // Checks if snake hit himself
-bool Snake::checkBodyCollision() const
+bool Snake::checkBodyCollision(Direction dir) const
 {
     SnakeTile head = snake.front();
 
+    int col = head.col;
+    int row = head.row;
+
+    if(dir == UP) row--;
+    else if(dir == DOWN) row++;
+    else if(dir == RIGHT) col++;
+    else if(dir == LEFT) col--;
+
     for(const auto& iterator: snake) // It goes through every element on the list and chceks if it maches given positon
     {
-        if(iterator.part != HEAD && iterator.col == head.col && iterator.row == head.row)
+        if(iterator.part != HEAD && iterator.col == col && iterator.row == row)
         {
             return true;
         }
     }
+
     return false;
 }
 

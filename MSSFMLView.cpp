@@ -58,7 +58,7 @@ void MSSFMLView::display(sf::RenderWindow &window) const
                     window.draw(rectangle);
                     break;
                 case OBSTICLE:
-                    rectangle.setFillColor(sf::Color(100, 100, 100));
+                    rectangle.setFillColor(sf::Color(50, 50, 50));
                     window.draw(rectangle);
                     break;
                 case EMPTY:

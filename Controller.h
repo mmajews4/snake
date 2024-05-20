@@ -9,6 +9,8 @@ enum GameState { RUNNING, FINISHED };
 
 class Controller 
 {
+    const int MAX_OBSTICLE_LENGH = 5;
+
     SnakeBoard &board;
     Snake &snake;
     Direction next_move_dir;
@@ -17,11 +19,18 @@ class Controller
 
     bool apple_eaten;
     int score;
+    float game_speed;
 
     // Generates apple
     // returns 1 if succesfully generated
     // returns 0 in not
     bool genApple();
+
+
+    // Generates obsticles
+    // returns 1 if succesfully generated
+    // returns 0 in not
+    bool genObsticle();
 
 
     // Function deletes Apple at col,row and generates a new one
@@ -36,9 +45,14 @@ class Controller
 public:
     Controller(SnakeBoard &, Snake &);
 
+    // Sets game to its starting position
+    void resetGame();
+
     Direction getNextDirection() const;
     GameState getGameState() const;
     int getScore();
+    void setGameMode(GameMode set_mode);
+    float getGameSpeed() const;
 
     // Changes currnet direction of snake
     void changeDirection(Direction dir);

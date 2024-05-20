@@ -34,15 +34,19 @@ void MSSFMLMenuCtrl::buttonAction(int col, int row)
     {
         case EASY_BUTTON:
             cout << "EASY" << endl;
+            ctrl.setGameMode(EASY);
             break;
         case NORMAL_BUTTON:
             cout << "NORMAL" << endl;
+            ctrl.setGameMode(NORMAL);
             break;
         case HARD_BUTTON:
             cout << "HARD" << endl;
+            ctrl.setGameMode(HARD);
             break;
         case PLAY:
             cout << "PLAY" << endl;
+            ctrl.resetGame();
             break;
         case SCORES:
             cout << "SCORES" << endl;
@@ -77,27 +81,13 @@ void MSSFMLMenuCtrl::show(sf::RenderWindow &window)
         else if(event.type == sf::Event::MouseButtonPressed)
         {
             buttonAction(event.mouseButton.x, event.mouseButton.y);
-/*            // calculate on wich tile action was taken, floor to not count -0.xx as 0
-            tile_press_col = floor((event.mouseButton.x - view.getLeftOffset())/view.tileLength());
-            tile_press_row = floor((event.mouseButton.y - view.getTopOffset())/view.tileLength());
+            
+            if(ctrl.getGameState() == RUNNING)
+            {
+                first_display = true;
+                return;
+            }
 
-            // Do action acording to things pressed
-            if(!(tile_press_col >= 0 && tile_press_col < board.getBoardWidth() && tile_press_row >= -1 && tile_press_row < board.getBoardHeight()))
-            {
-            }
-            else if(tile_press_row == -1)
-            {
-                board.restart();
-            }
-            else if(event.mouseButton.button == sf::Mouse::Left)
-            {
-                board.revealField(tile_press_row, tile_press_col);
-            }
-            else if(event.mouseButton.button == sf::Mouse::Right)
-            {
-                board.toggleFlag(tile_press_row, tile_press_col);
-            }
-*/
             // Update window
             view.display(window);
         }

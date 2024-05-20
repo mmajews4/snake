@@ -47,7 +47,7 @@ void MSSFMLMenuView::display(sf::RenderWindow &window)
     text_view.setString(text.string);
     text_view.setPosition(text.left_offset, text.top_offset);
     text_view.setFillColor(sf::Color(100, 100, 100));
-    window.draw(text_view);
+    if(ctrl.getScore() != 0) window.draw(text_view);
 
     // Create buttons
     sf::RectangleShape button_view(sf::Vector2f(buttons[0].width, buttons[0].height));

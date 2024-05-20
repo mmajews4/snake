@@ -27,6 +27,9 @@ public:
     // Creates snake at ehe middle of the boadrd with set length
     Snake(int sl, int col, int row);
 
+    // Resets Snake to its starting position
+    void resetSnake(int col, int row);
+
     // Function returns what parto of snake is at a given coordinates
     SnakePart isPartOfSnake(int col, int row) const;
 
@@ -37,7 +40,7 @@ public:
     int getSnakeLengh() const;
 
     // Checks if snake hit himself
-    bool checkBodyCollision() const;
+    bool checkBodyCollision(Direction dir) const;
     
     // Moves snake in current Direction
     void moveSnake(Direction next_move_dir, bool apple_eaten);

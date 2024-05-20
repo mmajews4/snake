@@ -2,6 +2,7 @@
 #define INC_278292_SNAKE_MSSFMLMENUCTRL_H
 
 #include "Controller.h"
+#include "MSSFMLController.h"
 #include "MSSFMLMenuView.h"
 
 class MSSFMLMenuCtrl{

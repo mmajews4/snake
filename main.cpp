@@ -14,7 +14,7 @@ using namespace std;
 
 int main() {
     
-    SnakeBoard board(20, 20, NORMAL);
+    SnakeBoard board(20, 20, HARD);
     Snake snake(5, board.getWidth()/2, board.getHeight()/2);
     Controller ctrl(board, snake);
 

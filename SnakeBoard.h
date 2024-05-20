@@ -7,7 +7,7 @@
 #include <random>
 
 enum GameMode  { DEBUG, EASY, NORMAL, HARD };
-enum Field { EMPTY, APPLE, OBSTICLE};
+enum Field { EMPTY, APPLE, OBSTICLE };
 
 class SnakeBoard {
 
@@ -25,6 +25,8 @@ public:
 
     // Creates board
     SnakeBoard(int, int, GameMode);
+
+    void resetBoard(GameMode);
 
     int getWidth() const;
     int getHeight() const;
