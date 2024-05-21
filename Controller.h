@@ -5,7 +5,7 @@
 #include "SnakeBoard.h"
 #include <iostream>
 
-enum GameState { RUNNING, FINISHED };
+enum GameState { RUNNING, FINISHED, SCORES};
 
 class Controller 
 {
@@ -52,16 +52,11 @@ public:
     GameState getGameState() const;
     int getScore();
     void setGameMode(GameMode set_mode);
+    GameMode getGameMode() const;
     float getGameSpeed() const;
 
     // Changes currnet direction of snake
     void changeDirection(Direction dir);
-
-
-    // - when game is running updates snake
-    // - when game finished it shows menu
-    void play();
-
 
     // Function updates snake state
     // - checks if after move, snake isn't out of board
@@ -70,16 +65,6 @@ public:
     // - checks if snake eats apple
     // - updates game state
     void updateSnake();
-    
-    // Finish game
-    // - if snake hits wall ora obsticle change gameState for FINISHED_LOSS
-    // - save score(snake length)
-    void finishGame(int);  
-
-    // Updates game
-    // - updates snake
-    // - updates board if apple was eaten or obsticle moved
-    void update();
 
     // Displays currnet state of the snake and the board
     void debug_display() const;

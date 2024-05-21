@@ -3,16 +3,15 @@
 using namespace std;
 
 // Creates board
-SnakeBoard::SnakeBoard(int w, int h, GameMode mode)
+SnakeBoard::SnakeBoard(int w, int h)
 {
     width = w;
     height = h;
-    
-    resetBoard(mode);
+    resetBoard();
 }
 
 
-void SnakeBoard::resetBoard(GameMode mode)
+void SnakeBoard::resetBoard()
 {
     board.resize(height, width);
 

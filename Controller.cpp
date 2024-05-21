@@ -19,7 +19,7 @@ void Controller::resetGame()
 {
     int obsticles_to_generate;
 
-    board.resetBoard(mode);
+    board.resetBoard();
     snake.resetSnake(board.getWidth()/2, board.getHeight()/2);
 
     state = RUNNING;
@@ -89,8 +89,6 @@ bool Controller::genObsticle()
     int row = rand_height(rng);
     Direction dir = static_cast<Direction>(rand_direction(rng));
 
-    cout << col << ", " << row << ", l:" << lengh_to_place << ", d:" << dir;
-
     // returns 0 if the place already is obsticle or is part of snake
     for(int lengh = 0; lengh < lengh_to_place; lengh++)
     {
@@ -100,17 +98,11 @@ bool Controller::genObsticle()
         if(col+lengh == board.getWidth()/2) return false;
     }
 
-
-    
-    cout << " GOOD1 ";
-
     for(int lengh = 0; lengh < lengh_to_place; lengh++)
     {
         if(dir == UP)    board.setBoardState(col, row+lengh, OBSTICLE);
         if(dir == RIGHT) board.setBoardState(col+lengh, row, OBSTICLE);
     }
-
-    cout << "GOOD2" <<endl;
 
     // returns 1 if succesfully generated
     return true;
@@ -160,25 +152,14 @@ void Controller::setGameMode(GameMode set_mode)
     mode = set_mode;
 }
 
+GameMode Controller::getGameMode() const
+{
+    return mode;
+}
+
 float Controller::getGameSpeed() const
 {
     return game_speed;
-}
-
-
-// Finish game
-// - if snake hits wall ora obsticle change gameState for FINISHED
-// - save score(snake length)
-void Controller::finishGame(int s)
-{
-
-}  
-
-
-// - when game is running updates snake
-// - when game finished it shows menu
-void Controller::play(){
-
 }
 
 

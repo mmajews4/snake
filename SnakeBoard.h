@@ -24,9 +24,9 @@ class SnakeBoard {
 public:
 
     // Creates board
-    SnakeBoard(int, int, GameMode);
+    SnakeBoard(int, int);
 
-    void resetBoard(GameMode);
+    void resetBoard();
 
     int getWidth() const;
     int getHeight() const;

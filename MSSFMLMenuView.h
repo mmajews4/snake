@@ -6,7 +6,7 @@
 #include "Controller.h"
 #include "MSSFMLView.h"
 
-enum ButtonFunction {EASY_BUTTON, NORMAL_BUTTON, HARD_BUTTON, PLAY, SCORES, DL_SCORES, NO_BUTTON};
+enum ButtonFunction {EASY_BUTTON, NORMAL_BUTTON, HARD_BUTTON, PLAY, SCORES_BUTTON, DL_SCORES, NO_BUTTON};
 
 struct Button {
     int width;
@@ -18,6 +18,7 @@ struct Button {
     int text_top_ofset;
     int text_size;
     std::string text;
+    bool active;
 };
 
 // Displayed text

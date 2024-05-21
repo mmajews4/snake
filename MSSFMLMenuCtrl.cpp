@@ -48,8 +48,9 @@ void MSSFMLMenuCtrl::buttonAction(int col, int row)
             cout << "PLAY" << endl;
             ctrl.resetGame();
             break;
-        case SCORES:
+        case SCORES_BUTTON:
             cout << "SCORES" << endl;
+  //          scores.saveScoreToFile();
             break;
         case DL_SCORES:
             cout << "DL_SCORES" << endl;
