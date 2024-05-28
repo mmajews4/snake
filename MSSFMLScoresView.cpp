@@ -5,7 +5,7 @@ using namespace std;
 MSSFMLScoresView::MSSFMLScoresView(GameFont &f) : font(f)
 {
     exit_button.emplace_back(30, 30, 5 ,550 ,20 ,7, 0, 24, "X", false, font);    // width, height, outline, left_ofset, top_ofset, text_left_ofset, text_top_ofset, text_size, text, active
-    text = {150, 50, 30, ""};// left_offset, top_offset, size, string
+    text = {150, 20, 30, ""};// left_offset, top_offset, size, string
     numeration = 1;
 }
 
