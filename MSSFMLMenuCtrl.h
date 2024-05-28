@@ -13,7 +13,7 @@ class MSSFMLMenuCtrl{
     bool first_display;
 
 
-    ButtonFunction inRangeOfButton(int col, int row) const;
+    ButtonFunction buttonClicked(int col, int row) const;
 
     void buttonAction(int col, int row);
 

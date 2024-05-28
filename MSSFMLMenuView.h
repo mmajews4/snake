@@ -3,23 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <vector>
 #include "Controller.h"
 #include "MSSFMLView.h"
+#include "Button.h"
 
-enum ButtonFunction {EASY_BUTTON, NORMAL_BUTTON, HARD_BUTTON, PLAY, SCORES_BUTTON, DL_SCORES, NO_BUTTON};
+enum ButtonFunction {EASY_BUTTON, NORMAL_BUTTON, HARD_BUTTON, PLAY, SCORES_BUTTON, NO_BUTTON};
 
-struct Button {
-    int width;
-    int height;
-    int outline;
-    int left_offset;
-    int top_offset;
-    int text_left_ofset;
-    int text_top_ofset;
-    int text_size;
-    std::string text;
-    bool active;
-};
 
 // Displayed text
 struct DispText {
@@ -34,15 +24,15 @@ class MSSFMLMenuView {
     Controller &ctrl;
     MSSFMLView &snake_view;
 
-    Button buttons[6];
+    std::vector<Button> buttons;
     DispText text;
+    GameFont &font;
 
 /*    sf::RectangleShape rectangle;
-    sf::Font font;
     sf::Text text;
 */
 public:
-    MSSFMLMenuView(Controller&, MSSFMLView&);
+    MSSFMLMenuView(Controller&, MSSFMLView&, GameFont&);
 
     Button getButton(ButtonFunction button_fuction) const; 
 

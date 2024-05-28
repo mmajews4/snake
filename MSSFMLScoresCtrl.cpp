@@ -2,9 +2,9 @@
 
 using namespace std;
 
-MSSFMLScoresCtrl::MSSFMLScoresCtrl(MSSFMLScoresView &v) :view(v)
+MSSFMLScoresCtrl::MSSFMLScoresCtrl(MSSFMLScoresView &v, Controller &c) :view(v), ctrl(c)
 {
-
+    first_display = true;
 }
 
 // Check if the click coordinates mach button coordinates
@@ -12,10 +12,16 @@ bool MSSFMLScoresCtrl::inRangeOfButton(int col, int row) const
 {
     Button button = view.getButton();
 
-    if(col >= button.left_offset && col < button.left_offset + button.width
-    && row >= button.top_offset  && row < button.top_offset + button.height) return true;
+    if(button.inRangeOfButton(col, row)) return true;
 
     return false;
+}
+
+
+// Function sanes scores to file
+void MSSFMLScoresCtrl::saveScoresToFile()
+{
+    
 }
 
 
@@ -23,6 +29,12 @@ bool MSSFMLScoresCtrl::inRangeOfButton(int col, int row) const
 void MSSFMLScoresCtrl::show(sf::RenderWindow &window)
 {
     sf::Event event;
+
+    if(first_display)
+    {
+        first_display = false;
+        view.display(window);
+    }
 
     while(window.pollEvent(event))
     {
@@ -32,7 +44,14 @@ void MSSFMLScoresCtrl::show(sf::RenderWindow &window)
         }
         else if(event.type == sf::Event::MouseButtonPressed)
         {
-            if(inRangeOfButton(event.mouseButton.x, event.mouseButton.y)) return;
+            if(inRangeOfButton(event.mouseButton.x, event.mouseButton.y))
+            {
+                // At exit clear te screan and set socore window to starting state
+                window.clear(sf::Color::Black);
+                first_display = true;
+                ctrl.setGameState(FINISHED);
+                return;
+            }
 
             // Update window
             view.display(window);

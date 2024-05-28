@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include "Array2D.h"
 #include "SnakeBoard.h"
@@ -19,11 +20,12 @@ int main() {
     Snake snake(5, board.getWidth()/2, board.getHeight()/2);
     Controller ctrl(board, snake);
 
+    GameFont font;
     MSSFMLView view(board, snake);
     MSSFMLController win_ctrl(board, snake, ctrl, view);
-    MSSFMLScoresView scores_view;
-    MSSFMLScoresCtrl scores_ctrl(scores_view);
-    MSSFMLMenuView menu_view(ctrl, view);
+    MSSFMLScoresView scores_view(font);
+    MSSFMLScoresCtrl scores_ctrl(scores_view, ctrl);
+    MSSFMLMenuView menu_view(ctrl, view, font);
     MSSFMLMenuCtrl menu_ctrl(ctrl, menu_view);
 
     sf::RenderWindow window(sf::VideoMode(view.getWindowWidth(), view.getWindowHeight()), "Snake", sf::Style::Titlebar | sf::Style::Close);

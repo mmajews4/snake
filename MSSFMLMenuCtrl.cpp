@@ -8,7 +8,7 @@ MSSFMLMenuCtrl::MSSFMLMenuCtrl(Controller &c, MSSFMLMenuView &v) :ctrl(c), view(
 }
 
 
-ButtonFunction MSSFMLMenuCtrl::inRangeOfButton(int col, int row) const
+ButtonFunction MSSFMLMenuCtrl::buttonClicked(int col, int row) const
 {
     int button_number = 0;
     ButtonFunction button_func = static_cast<ButtonFunction>(button_number); 
@@ -17,8 +17,7 @@ ButtonFunction MSSFMLMenuCtrl::inRangeOfButton(int col, int row) const
     {
         Button button = view.getButton(button_func);
 
-        if(col >= button.left_offset && col < button.left_offset + button.width
-        && row >= button.top_offset  && row < button.top_offset + button.height) return button_func;
+        if(button.inRangeOfButton(col,row)) return button_func;
 
         button_number++;
         button_func = static_cast<ButtonFunction>(button_number);
@@ -30,7 +29,7 @@ ButtonFunction MSSFMLMenuCtrl::inRangeOfButton(int col, int row) const
 
 void MSSFMLMenuCtrl::buttonAction(int col, int row)
 {
-    switch(inRangeOfButton(col, row))
+    switch(buttonClicked(col, row))
     {
         case EASY_BUTTON:
             cout << "EASY" << endl;
@@ -51,9 +50,7 @@ void MSSFMLMenuCtrl::buttonAction(int col, int row)
         case SCORES_BUTTON:
             cout << "SCORES" << endl;
   //          scores.saveScoreToFile();
-            break;
-        case DL_SCORES:
-            cout << "DL_SCORES" << endl;
+            ctrl.setGameState(SCORES);
             break;
         case NO_BUTTON:
             cout << "NO_BUTTON" << endl;
@@ -83,11 +80,13 @@ void MSSFMLMenuCtrl::show(sf::RenderWindow &window)
         {
             buttonAction(event.mouseButton.x, event.mouseButton.y);
             
-            if(ctrl.getGameState() == RUNNING)
+            if(ctrl.getGameState() != FINISHED)
             {
                 first_display = true;
                 return;
             }
+
+            cout << ctrl.getGameState() << endl;
 
             // Update window
             view.display(window);

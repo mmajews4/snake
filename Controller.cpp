@@ -142,6 +142,11 @@ GameState Controller::getGameState() const
     return state;
 }
 
+void Controller::setGameState(GameState s)
+{
+    state = s;
+}
+
 void Controller::changeDirection(Direction dir)
 {
     next_move_dir = dir;

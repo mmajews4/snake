@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Copies files to github snake directory and sends them to both github and gitlab
+
+if [ $# -ne 2 ]; then
+    echo "Za mało argumentów, wywołanie: ./sendgit Commit_gitlab Commit_github"
+    exit 1
+fi
+
+github_path="/home/mmajews2/Desktop/Zadania_Laborki/github/snake/snake_mw_cz09_278292/"
+gitlab_path="/home/mmajews2/Desktop/Zadania_Laborki/Programowanie_obiektowe/snake/snake_mw_cz09_278292/"
+
+# Copy files from gitlab_path to github_path
+cp -r "$gitlab_path"* "$github_path"
+
+# Change to github directory and commit
+cd "$github_path" || { echo "Failed to cd to $github_path"; exit 1; }
+git add .
+git commit -m "$2"
+
+# Ask user for confirmation to push
+read -p "Do you want to push? [y/n] " agreement
+
+if [ "$agreement" == "y" ]; then
+#    git push origin master
+
+    # Sleep for 1 second
+    sleep 1
+
+    # Change to gitlab directory and commit
+    cd "$gitlab_path" || { echo "Failed to cd to $gitlab_path"; exit 1; }
+    git add .
+    git commit -m "$1"
+#    git push origin master
+fi
+
+# Ensure the script ends in the gitlab directory
+cd "$gitlab_path" || { echo "Failed to cd to $gitlab_path"; exit 1; }

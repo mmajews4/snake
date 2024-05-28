@@ -5,7 +5,7 @@
 #include "SnakeBoard.h"
 #include <iostream>
 
-enum GameState { RUNNING, FINISHED, SCORES};
+enum GameState { RUNNING, FINISHED, SCORES };
 
 class Controller 
 {
@@ -50,6 +50,7 @@ public:
 
     Direction getNextDirection() const;
     GameState getGameState() const;
+    void setGameState(GameState);
     int getScore();
     void setGameMode(GameMode set_mode);
     GameMode getGameMode() const;
