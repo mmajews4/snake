@@ -9,6 +9,11 @@
 #include <vector>
 #include "Button.h"
 
+struct Score {
+    int number;
+    std::string name;
+};
+
 // Displayed text
 struct DisText {
     int left_offset;
@@ -19,7 +24,7 @@ struct DisText {
 
 class MSSFMLScoresView {
 
-    const int SCORES_OFFSET = 50;
+    const int SCORES_OFFSET = 55;
 
     std::vector<Button> exit_button;
     DisText text;

@@ -4,6 +4,7 @@
 #include "Snake.h"
 #include "SnakeBoard.h"
 #include <iostream>
+#include <fstream>
 
 enum GameState { RUNNING, FINISHED, SCORES };
 
@@ -16,7 +17,7 @@ class Controller
     Direction next_move_dir;
     GameMode mode;
     GameState state;
-
+    
     bool apple_eaten;
     int score;
     float game_speed;
@@ -41,6 +42,9 @@ class Controller
     // - chceks if snakde didn't hit himself
     // - returns 0 if there was no collision and 1 if it happened
     bool checkCollision(SnakeTile head) const;
+
+    // Updates top10scores file
+    void addScoreToFile();
 
 public:
     Controller(SnakeBoard &, Snake &);

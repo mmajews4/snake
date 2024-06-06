@@ -203,8 +203,8 @@ void Controller::updateSnake()
     // checks colisons and updates game state
     if(checkCollision(head))
     {
+        addScoreToFile();
         state = FINISHED;
-        debug_display();
         return;
     }
 
@@ -213,33 +213,53 @@ void Controller::updateSnake()
     // - checks if snake eats apple
     apple_eaten = false;
     eatApple(head.col, head.row);
+}
 
 
+void Controller::addScoreToFile()
+{
+    std::vector<int> scoreboard(10);
 
+    std::ifstream File("top10scores.txt");
+    string line;
+    int buffer;
+    int current_score = score;
 
-
-   /* SnakeTile first_element = snake.snake.front();
-
-    if(board.getBoardState(first_element.col, first_element.row) == APPLE)
-    {
-        board.eatApple(first_element.col, first_element.row);
-
-        bool check_apple = true;
-        while(check_apple)
-        { 
-            check_apple = false;
-            // Check if apple didn't generate inside snake
-            for(const auto& iterator: snake.snake) // It goes through every element on the list and chceks if it maches given positon
-            {
-                if(board.getBoardState(iterator.col, iterator.row) == APPLE)
-                {
-                    board.eatApple(iterator.col, iterator.row);
-                    check_apple = true;      
-                }
+    if(File.is_open()) {
+        // Read contsnts of the file
+        for(int score_nr = 0; score_nr < 10; score_nr++) 
+        {
+            if(getline(File, line)){
+                scoreboard[score_nr] = std::stoi(line);
+            } else {
+                scoreboard[score_nr] = 0; // Handle case where less than 10 scores are present
             }
         }
-        return;
-    }*/
+
+        File.close(); // Close the file when done
+    } else {
+        cerr << "Unable to open file for reading" << endl;
+    }
+
+    // Add current score
+    for (int score_nr = 0; score_nr < 10; ++score_nr) {
+        if (current_score > scoreboard[score_nr]) {
+            buffer = scoreboard[score_nr];
+            scoreboard[score_nr] = current_score;
+            current_score = buffer;
+        }
+    }
+
+    // Reopen the file in output mode to overwrite scoreboard
+    std::ofstream outfile("top10scores.txt", std::ios::out | std::ios::trunc);
+    if (outfile.is_open()) {
+        for (const auto& score : scoreboard) {
+            outfile << score << "\n";
+        }
+        outfile.close(); // Close the file after writing
+    } else {
+        std::cerr << "Unable to open file for writing" << std::endl;
+    }
 }
 
 

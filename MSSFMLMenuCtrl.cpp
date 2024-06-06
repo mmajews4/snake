@@ -32,28 +32,21 @@ void MSSFMLMenuCtrl::buttonAction(int col, int row)
     switch(buttonClicked(col, row))
     {
         case EASY_BUTTON:
-            cout << "EASY" << endl;
             ctrl.setGameMode(EASY);
             break;
         case NORMAL_BUTTON:
-            cout << "NORMAL" << endl;
             ctrl.setGameMode(NORMAL);
             break;
         case HARD_BUTTON:
-            cout << "HARD" << endl;
             ctrl.setGameMode(HARD);
             break;
         case PLAY:
-            cout << "PLAY" << endl;
             ctrl.resetGame();
             break;
         case SCORES_BUTTON:
-            cout << "SCORES" << endl;
-  //          scores.saveScoreToFile();
             ctrl.setGameState(SCORES);
             break;
         case NO_BUTTON:
-            cout << "NO_BUTTON" << endl;
             break;
     }
 }
@@ -85,8 +78,6 @@ void MSSFMLMenuCtrl::show(sf::RenderWindow &window)
                 first_display = true;
                 return;
             }
-
-            cout << ctrl.getGameState() << endl;
 
             // Update window
             view.display(window);
