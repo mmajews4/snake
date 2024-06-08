@@ -23,7 +23,7 @@ int main() {
     GameFont font;
     MSSFMLView view(board, snake);
     MSSFMLController win_ctrl(board, snake, ctrl, view);
-    MSSFMLScoresView scores_view(font);
+    MSSFMLScoresView scores_view(font, ctrl);
     MSSFMLScoresCtrl scores_ctrl(scores_view, ctrl);
     MSSFMLMenuView menu_view(ctrl, view, font);
     MSSFMLMenuCtrl menu_ctrl(ctrl, menu_view);
@@ -36,7 +36,9 @@ int main() {
     {
         if(ctrl.getGameState() == RUNNING) win_ctrl.play(window);
 
-        if(ctrl.getGameState() == FINISHED) menu_ctrl.show(window);
+        if(ctrl.getGameState() == FINISHED) scores_ctrl.saveScore(window);
+
+        if(ctrl.getGameState() == MENU) menu_ctrl.show(window);
 
         if(ctrl.getGameState() == SCORES) scores_ctrl.show(window);
     }

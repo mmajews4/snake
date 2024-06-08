@@ -18,8 +18,15 @@ find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 add_executable(snake
         main.cpp
         Array2D.h
+        GameFont.cpp
+        Button.cpp
         SnakeBoard.cpp
         Snake.cpp
+        Controller.cpp
         MSSFMLView.cpp
-        MSSFMLController.cpp)
+        MSSFMLController.cpp
+        MSSFMLMenuView.cpp
+        MSSFMLMenuCtrl.cpp
+        MSSFMLScoresView.cpp
+        MSSFMLScoresCtrl.cpp)
 target_link_libraries(snake sfml-graphics sfml-window sfml-system)

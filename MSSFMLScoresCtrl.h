@@ -2,14 +2,21 @@
 #define INC_278292_SNAKE_MSSFMLSCORESCTRL_H
 
 #include <fstream>
+#include <sstream>
 #include "MSSFMLScoresView.h"
 #include "Controller.h"
 
 class MSSFMLScoresCtrl{
 
+    const uint MAX_NAME_LENGTH = 16;
+
     MSSFMLScoresView &view;
     Controller &ctrl;
     bool first_display;
+    std::string name;
+
+    // Function sanes scores to file
+    void saveScoreToFile(std::string);
 
 public:
     MSSFMLScoresCtrl(MSSFMLScoresView &, Controller &);
@@ -17,8 +24,8 @@ public:
     // Check if the click coordinates mach button coordinates
     bool inRangeOfButton(int col, int row) const;
 
-    // Function sanes scores to file
-    void saveScoresToFile();
+    // Allows player to write their name to be displayed near score
+    void saveScore(sf::RenderWindow &);
 
     // Function handles mouse actions and updates menu according to action
     void show(sf::RenderWindow &);

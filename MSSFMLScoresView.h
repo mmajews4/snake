@@ -8,11 +8,7 @@
 #include <string>
 #include <vector>
 #include "Button.h"
-
-struct Score {
-    int number;
-    std::string name;
-};
+#include "Controller.h"
 
 // Displayed text
 struct DisText {
@@ -25,16 +21,22 @@ struct DisText {
 class MSSFMLScoresView {
 
     const int SCORES_OFFSET = 55;
+    const int LETTER_WIDTH = 20;
 
     std::vector<Button> exit_button;
+    std::vector<DisText> saving_text;
     DisText text;
     GameFont &font;
+    Controller &ctrl;
     int numeration;
 
 public:
-    MSSFMLScoresView(GameFont &);
+    MSSFMLScoresView(GameFont &, Controller &);
 
     Button getButton() const;
+
+    // Display screen for saving socore
+    void displayScoreSaving(std::string, sf::RenderWindow &);
 
     // Display best 10 scores
     void display(sf::RenderWindow &);

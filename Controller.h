@@ -6,7 +6,11 @@
 #include <iostream>
 #include <fstream>
 
-enum GameState { RUNNING, FINISHED, SCORES };
+enum GameState { RUNNING, FINISHED, MENU, SCORES };
+struct Score {
+    int number;
+    std::string name;
+};
 
 class Controller 
 {
@@ -42,9 +46,6 @@ class Controller
     // - chceks if snakde didn't hit himself
     // - returns 0 if there was no collision and 1 if it happened
     bool checkCollision(SnakeTile head) const;
-
-    // Updates top10scores file
-    void addScoreToFile();
 
 public:
     Controller(SnakeBoard &, Snake &);

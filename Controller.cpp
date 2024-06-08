@@ -4,8 +4,8 @@ using namespace std;
 
 Controller::Controller(SnakeBoard &b, Snake &s) : board(b), snake(s)
 {
-    state = FINISHED;
-    mode = HARD;
+    state = MENU;
+    mode = NORMAL;
     game_speed = 0.15;
     score = 0;
     next_move_dir = UP;
@@ -203,7 +203,6 @@ void Controller::updateSnake()
     // checks colisons and updates game state
     if(checkCollision(head))
     {
-        addScoreToFile();
         state = FINISHED;
         return;
     }
@@ -213,53 +212,6 @@ void Controller::updateSnake()
     // - checks if snake eats apple
     apple_eaten = false;
     eatApple(head.col, head.row);
-}
-
-
-void Controller::addScoreToFile()
-{
-    std::vector<int> scoreboard(10);
-
-    std::ifstream File("top10scores.txt");
-    string line;
-    int buffer;
-    int current_score = score;
-
-    if(File.is_open()) {
-        // Read contsnts of the file
-        for(int score_nr = 0; score_nr < 10; score_nr++) 
-        {
-            if(getline(File, line)){
-                scoreboard[score_nr] = std::stoi(line);
-            } else {
-                scoreboard[score_nr] = 0; // Handle case where less than 10 scores are present
-            }
-        }
-
-        File.close(); // Close the file when done
-    } else {
-        cerr << "Unable to open file for reading" << endl;
-    }
-
-    // Add current score
-    for (int score_nr = 0; score_nr < 10; ++score_nr) {
-        if (current_score > scoreboard[score_nr]) {
-            buffer = scoreboard[score_nr];
-            scoreboard[score_nr] = current_score;
-            current_score = buffer;
-        }
-    }
-
-    // Reopen the file in output mode to overwrite scoreboard
-    std::ofstream outfile("top10scores.txt", std::ios::out | std::ios::trunc);
-    if (outfile.is_open()) {
-        for (const auto& score : scoreboard) {
-            outfile << score << "\n";
-        }
-        outfile.close(); // Close the file after writing
-    } else {
-        std::cerr << "Unable to open file for writing" << std::endl;
-    }
 }
 
 

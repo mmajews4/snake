@@ -73,7 +73,7 @@ void MSSFMLMenuCtrl::show(sf::RenderWindow &window)
         {
             buttonAction(event.mouseButton.x, event.mouseButton.y);
             
-            if(ctrl.getGameState() != FINISHED)
+            if(ctrl.getGameState() != MENU)
             {
                 first_display = true;
                 return;

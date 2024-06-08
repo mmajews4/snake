@@ -28,9 +28,6 @@ class MSSFMLMenuView {
     DispText text;
     GameFont &font;
 
-/*    sf::RectangleShape rectangle;
-    sf::Text text;
-*/
 public:
     MSSFMLMenuView(Controller&, MSSFMLView&, GameFont&);
 

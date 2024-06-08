@@ -22,6 +22,9 @@ Button MSSFMLMenuView::getButton(ButtonFunction button_fuction) const
 
 void MSSFMLMenuView::display(sf::RenderWindow &window)
 {
+    // Clear background 
+    window.clear(sf::Color::Black);
+
     // Display currnet game mode
     for(int iterator = 0; iterator < 3; iterator++){ buttons[iterator].setActive(false); }
     if(ctrl.getGameMode() == EASY) buttons[static_cast<int>(EASY_BUTTON)].setActive(true);
