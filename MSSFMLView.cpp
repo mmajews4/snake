@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 MSSFMLView::MSSFMLView(SnakeBoard &b, Snake &s) : board(b), snake(s)
 {
     window_width = 600, window_height = 600;
@@ -22,6 +24,47 @@ int MSSFMLView::getWindowWidth() const
 }
 
 
+void MSSFMLView::importTextures()
+{
+    sf::Texture head_texture;
+    sf::Texture straight_body_texture;
+    sf::Texture turn_body_texture;
+    sf::Texture tail_texture;
+    sf::Texture apple_texture;
+    sf::Texture obsticle_texture;
+    sf::Texture background_texture;
+
+    if (!head_texture.loadFromFile("textures/snake_head.png")) {
+        cerr << "Unable to load head texture" << endl;
+        return;
+    }
+    if (!straight_body_texture.loadFromFile("textures/snake_body_straight.png")) {
+        cerr << "Unable to load straight body texture" << endl;
+        return;
+    }
+    if (!turn_body_texture.loadFromFile("textures/snake_body_right.png")) {
+        cerr << "Unable to load turn body texture" << endl;
+        return;
+    }
+    if (!tail_texture.loadFromFile("textures/snake_tail.png")) {
+        cerr << "Unable to load tail texture" << endl;
+        return;
+    }
+    if (!apple_texture.loadFromFile("textures/snake_apple,png")) {
+        cerr << "Unable to load apple texture" << endl;
+        return;
+    }
+    if (!obsticle_texture.loadFromFile("textures/snake_obsticle.png")) {
+        cerr << "Unable to load obsticle texture" << endl;
+        return;
+    }
+    if (!background_texture.loadFromFile("textures/snake_board.png")) {
+        cerr << "Unable to load background texture" << endl;
+        return;
+    }
+}
+
+
 void MSSFMLView::display(sf::RenderWindow &window) const 
 {
     // clear the window with black color
@@ -38,7 +81,8 @@ void MSSFMLView::display(sf::RenderWindow &window) const
 
             switch(snake.isPartOfSnake(col, row)){
                 case HEAD:
-                    rectangle.setFillColor(sf::Color(0, 155, 0));
+                    //rectangle.setFillColor(sf::Color(0, 155, 0));
+                    rectangle.setTexture(&head_texture);
                     window.draw(rectangle);
                     continue;
                 case BODY:
