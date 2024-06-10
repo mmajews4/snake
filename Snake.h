@@ -30,7 +30,7 @@ public:
     // Resets Snake to its starting position
     void resetSnake(int col, int row);
 
-    // Function returns what parto of snake is at a given coordinates
+    // Function returns what part of snake is at a given coordinates
     SnakePart isPartOfSnake(int col, int row) const;
 
     // Returns where is head
@@ -38,6 +38,9 @@ public:
 
     // Returns snake lengh for score
     int getSnakeLengh() const;
+
+    // Returns snake
+    std::list<SnakeTile> getSnake() const;
 
     // Checks if snake hit himself
     bool checkBodyCollision(Direction dir) const;

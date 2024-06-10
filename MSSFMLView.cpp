@@ -10,6 +10,7 @@ MSSFMLView::MSSFMLView(SnakeBoard &b, Snake &s) : board(b), snake(s)
     height = board.getHeight();
     width = board.getWidth();
     tile_size = window_width/width;
+    importTextures();
 }
 
 
@@ -26,14 +27,6 @@ int MSSFMLView::getWindowWidth() const
 
 void MSSFMLView::importTextures()
 {
-    sf::Texture head_texture;
-    sf::Texture straight_body_texture;
-    sf::Texture turn_body_texture;
-    sf::Texture tail_texture;
-    sf::Texture apple_texture;
-    sf::Texture obsticle_texture;
-    sf::Texture background_texture;
-
     if (!head_texture.loadFromFile("textures/snake_head.png")) {
         cerr << "Unable to load head texture" << endl;
         return;
@@ -50,7 +43,7 @@ void MSSFMLView::importTextures()
         cerr << "Unable to load tail texture" << endl;
         return;
     }
-    if (!apple_texture.loadFromFile("textures/snake_apple,png")) {
+    if (!apple_texture.loadFromFile("textures/snake_apple.png")) {
         cerr << "Unable to load apple texture" << endl;
         return;
     }
@@ -58,7 +51,7 @@ void MSSFMLView::importTextures()
         cerr << "Unable to load obsticle texture" << endl;
         return;
     }
-    if (!background_texture.loadFromFile("textures/snake_board.png")) {
+    if (!background_texture.loadFromFile("textures/snake_board2.png")) {
         cerr << "Unable to load background texture" << endl;
         return;
     }
@@ -67,51 +60,88 @@ void MSSFMLView::importTextures()
 
 void MSSFMLView::display(sf::RenderWindow &window) const 
 {
-    // clear the window with black color
-    window.clear(sf::Color::Black);
+    // create background
+    sf::RectangleShape background(sf::Vector2f(window_width, window_height));
+    background.setPosition(0,0);
+    background.setTexture(&background_texture);
+    window.draw(background);
     
     // create rectangle object
     sf::RectangleShape rectangle(sf::Vector2f(tile_size, tile_size));
-    rectangle.setFillColor(sf::Color(0, 255, 0));
+    // change tile origin for easier rotation
+    rectangle.setOrigin(tile_size/2, tile_size/2);
 
     for(int row = 0; row < height; row++){
         for(int col = 0; col < width; col++){
 
-            rectangle.setPosition(col*tile_size, row*tile_size);
-
-            switch(snake.isPartOfSnake(col, row)){
-                case HEAD:
-                    //rectangle.setFillColor(sf::Color(0, 155, 0));
-                    rectangle.setTexture(&head_texture);
-                    window.draw(rectangle);
-                    continue;
-                case BODY:
-                    rectangle.setFillColor(sf::Color(0, 255, 0));
-                    window.draw(rectangle);
-                    continue;
-                case TAIL:
-                    rectangle.setFillColor(sf::Color(0, 200, 0));
-                    window.draw(rectangle);
-                    continue;
-                case NONE:
-                    break;
-            }    
+            rectangle.setPosition(col*tile_size + (tile_size/2), row*tile_size + (tile_size/2));
+            
             switch(board.getBoardState(col, row)){
                 case APPLE:
-                    rectangle.setFillColor(sf::Color(255, 0, 0));
+                    rectangle.setTexture(&apple_texture);
                     window.draw(rectangle);
                     break;
                 case OBSTICLE:
-                    rectangle.setFillColor(sf::Color(50, 50, 50));
+                    rectangle.setTexture(&obsticle_texture);
                     window.draw(rectangle);
                     break;
                 case EMPTY:
-                    rectangle.setFillColor(sf::Color(10, 10, 10));
-                    window.draw(rectangle);
                     break;
             }
         }
     }
+
+    list<SnakeTile> snake_tile = snake.getSnake();
+    Direction prev_direction = UP;
+
+    for(const auto& tile: snake_tile)
+    {
+        rectangle.setPosition(tile.col*tile_size + (tile_size/2), tile.row*tile_size + (tile_size/2));
+
+        switch(tile.part){
+            case HEAD:
+                rectangle.setTexture(&head_texture);
+                if     (tile.direction == LEFT) rectangle.setRotation(0.0f);
+                else if(tile.direction == UP)   rectangle.setRotation(90.0f);
+                else if(tile.direction == RIGHT)rectangle.setRotation(180.0f);
+                else if(tile.direction == DOWN) rectangle.setRotation(270.0f);
+                break;
+            case BODY:
+                if(prev_direction == tile.direction)
+                {
+                    rectangle.setTexture(&straight_body_texture);
+                    if     (tile.direction == LEFT) rectangle.setRotation(0.0f);
+                    else if(tile.direction == DOWN) rectangle.setRotation(90.0f);
+                    else if(tile.direction == RIGHT)rectangle.setRotation(180.0f);
+                    else if(tile.direction == UP)   rectangle.setRotation(270.0f);
+                } 
+                else
+                {
+                    rectangle.setTexture(&turn_body_texture);
+                    if     ((prev_direction == RIGHT && tile.direction == DOWN ) 
+                          ||(prev_direction == UP    && tile.direction == LEFT )) rectangle.setRotation(0.0f);
+                    else if((prev_direction == LEFT  && tile.direction == DOWN )
+                          ||(prev_direction == UP    && tile.direction == RIGHT)) rectangle.setRotation(270.0f);
+                    else if((prev_direction == LEFT  && tile.direction == UP   )
+                          ||(prev_direction == DOWN  && tile.direction == RIGHT)) rectangle.setRotation(180.0f);
+                    else if((prev_direction == DOWN  && tile.direction == LEFT )
+                          ||(prev_direction == RIGHT && tile.direction == UP   )) rectangle.setRotation(90.0f);
+                }
+                break;
+            case TAIL:
+                rectangle.setTexture(&tail_texture);
+                if     (prev_direction == LEFT) rectangle.setRotation(180.0f);
+                else if(prev_direction == DOWN) rectangle.setRotation(90.0f);
+                else if(prev_direction == RIGHT)rectangle.setRotation(0.0f);
+                else if(prev_direction == UP)   rectangle.setRotation(270.0f);
+                break;
+            case NONE:
+                break;
+        }
+        prev_direction = tile.direction;
+        window.draw(rectangle);
+    }
+
     // Display the content
     window.display();
 }

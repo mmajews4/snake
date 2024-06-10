@@ -3,6 +3,7 @@
 
 #include "SnakeBoard.h"
 #include "Snake.h"
+#include <list>
 #include <SFML/Graphics.hpp>
 
 class MSSFMLView {

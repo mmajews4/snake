@@ -79,6 +79,13 @@ int Snake::getSnakeLengh() const
 }
 
 
+// Returns snake
+std::list<SnakeTile> Snake::getSnake() const
+{
+    return snake;
+}
+
+
 void Snake::moveSnake(Direction next_move_dir, bool apple_eaten)
 {
     SnakeTile first_element = snake.front();
