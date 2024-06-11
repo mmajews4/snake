@@ -7,7 +7,6 @@ all:
 
 .PHONY:app
 app:
-	$(CXX) $(CXX_FLAGS) ./*.cpp -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
-
+	$(CXX) $(CXX_FLAGS) ./src/*.cpp -I ./include -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 run:
 	./sfml-app
