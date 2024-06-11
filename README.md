@@ -22,12 +22,12 @@ Follow these steps to set up and run the Snake Game on your local machine:
 
 1. **Clone the repository**
     ```bash
-    git clone https://zts.ita.pwr.wroc.pl/gitlab/mateusz.majewski_278292/snake_mw_cz09_278292.git
+    git clone https://github.com/mmajews4/snake.git
     ```
 
 2. **Navigate to the project directory**
     ```bash
-    cd snake_mw_cz09_278292
+    cd snake
     ```
 
 3. **Install sfml if you don't already have it**
@@ -62,7 +62,7 @@ Follow these steps to set up and run the Snake Game on your local machine:
 
 ## License
 All files including graphics were made by the creator of the project specificaly for its use.
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
 
 ## Contact
-If you have any questions or suggestions, feel free to contact me at [278292@student.pwr.edu.pl].
+If you have any questions or suggestions, feel free to contact me at [matimaj2004@gmail.com].
